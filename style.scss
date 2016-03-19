@@ -1,0 +1,17 @@
+$roboto-font-path: "node_modules/materialize-css/font/roboto/";
+$icons-font-path: "node_modules/materialize-css/font/material-design-icons/";
+
+@import "~materialize-css/sass/materialize";
+
+body {
+    // background-color: $primary-color;
+}
+
+::-webkit-input-placeholder {
+    color: #fff;
+    font-style: italic;
+}
+::-moz-placeholder {
+    color: #fff;
+    font-style: italic;
+}
