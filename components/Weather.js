@@ -12,10 +12,10 @@ const onlyTime = (date) => {
   let hours = date.getHours() < 10 ? "0"+date.getHours() : date.getHours()
   let minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()
   let seconds = date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds()
-  
+
   return `${hours}:${minutes}:${seconds}`
 }
-  
+
 const generateChartConfig = (data) => {
   let fields = {
     "x": (item) => item.dt*1000,
@@ -23,12 +23,13 @@ const generateChartConfig = (data) => {
     "Wind": "wind.speed",
     "Pressure": "main.pressure"
   }
+  let list = _.filter(_.drop(data.list, 4), (item, index) => index % 8 === 0)
 
   let charData = _.map(fields, (field, title) => {
-    let a = _.map(data.list, field)
+    let a = _.map(list, field)
     return [title, ...a]
   })
-  
+
   return {
     data: {
       x: 'x',
@@ -83,10 +84,10 @@ const generateChartConfig = (data) => {
 const ForecastDetails = ({details}) => {
 
   // Filter out only forecast for 12:00 every day.
-  // Forecast should just give a hint on the upcoming weather, 
-  // show one for each day is enough and doesn't create an to long list    
+  // Forecast should just give a hint on the upcoming weather,
+  // show one for each day is enough and doesn't create an to long list
   let list = _.filter(_.drop(details, 4), (item, index) => index % 8 === 0)
-  
+
   return (
       <ul className="collection">
       {_.map(list, (data) => (
@@ -100,7 +101,7 @@ const ForecastDetails = ({details}) => {
             <b>Max temp</b> {kelvinToCelcius(data.main.temp_max)} °C<br />
             <b>Min temp</b> {kelvinToCelcius(data.main.temp_min)} °C
           </p>
-        </li>  
+        </li>
       ))}
     </ul>
   )
@@ -120,14 +121,15 @@ class Weather extends React.Component {
   }
 
   render() {
-    let data = this.props.data; 
-    
+    let data = this.props.data;
+
     // If we dont have any data, just return
     if(!data.main) {
       return <div />
     }
-    
-    let toggleDetails = () => {
+
+    let toggleDetails = (e) => {
+      e.nativeEvent.preventDefault()
       this.setState({
         showDetails: !this.state.showDetails
       })
@@ -167,7 +169,7 @@ class Weather extends React.Component {
             <div className="card z-depth-1">
               <div className="card-content">
                 <h5>Forecast for the upcoming five days</h5>
-                <Chart config={generateChartConfig(data)} />   
+                <Chart config={generateChartConfig(data)} />
                 {this.state.showDetails ? <ForecastDetails details={data.list} /> : null}
                 <div className="card-action">
                   <a href="#" onClick={toggleDetails}>
