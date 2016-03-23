@@ -3,10 +3,14 @@ $icons-font-path: "node_modules/materialize-css/font/material-design-icons/";
 
 @import "~materialize-css/sass/materialize";
 
-body {
-    // background-color: $primary-color;
+/* Adjust the stylesheets to make the search field a bit easier to spot */
+nav .input-field input {
+    height: 63px;
 }
-
+nav .input-field input:hover,
+nav .input-field input:focus, {
+    background-color: #bf360c;
+}
 ::-webkit-input-placeholder {
     color: #fff;
     font-style: italic;
