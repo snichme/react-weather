@@ -9,7 +9,7 @@ import Weather from './components/Weather'
 
 require("./style.scss")
 
-const APP_ID = "b1b15e88fa797225412429c1c50c122a"
+const APP_ID = "<ENTER_YOUR_APPID_HERE>"
 
 const state = {
   query: "",
@@ -17,10 +17,8 @@ const state = {
 }
 
 const fetchWeatherData = () => {
-  //const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${state.query}&appid=${APP_ID}`
-  //const forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${state.query}&mode=json&appid=${APP_ID}`
-  const weatherUrl = "weather.json"
-  const forecastUrl = "forecast.json";
+  const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${state.query}&appid=${APP_ID}`
+  const forecastUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${state.query}&mode=json&appid=${APP_ID}`
   
   return Promise.all([
     fetch(weatherUrl).then((response) => response.json()), 
@@ -50,4 +48,3 @@ const renderProgram = () => {
   )
 }
 renderProgram()
-onSearch("London,UK")
