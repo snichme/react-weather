@@ -4,7 +4,9 @@
   "description": "See the weather with React",
   "scripts": {
     "start": "node server.js",
-    "test": "cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./test/setup.js"
+    "test": "cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./test/setup.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,8 @@
     "materialize-css": "^0.99.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "whatwg-fetch": "^0.11.0"
+    "whatwg-fetch": "^0.11.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",
@@ -43,5 +46,6 @@
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.2.0"
-  }
+  },
+  "snyk": true
 }
